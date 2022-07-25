@@ -48,7 +48,10 @@ function projectEulerProblem1() {
     let n = 999;
     let sum = 0;
     while(n) {
-        if(n%3===0 || n%5===0) {
+        // if(n%3===0 || n%5===0) {
+        //     sum += n;
+        // }
+        if (!(n%3 && n%5)) {
             sum += n;
         }
         n--;
@@ -67,23 +70,28 @@ function alwaysTrue(f) {
     It should use an imperative loop to sum over the numbers from 1 up to (but not including) n,
     including the number x in the sum only if f(x) is true.
 */
-function imperativeSummer() {
-
+function imperativeSummer(f, n) {
+    let sum = 0;
+    while (n) {
+        n--;
+        sum += f(n) ? n : 0;
+    }
+    return sum;
 }
 /**
     Write a function called sumTo that takes as parameter a number n and
     uses imperativeSummer and alwaysTrue to calculate the sum of all numbers
     from 1 up to (but not including) n.
 */
-function sumTo() {
-
+function sumTo(n) {
+    return imperativeSummer(alwaysTrue, n);
 }
 /**
     Write a function called ‘isDivisibleByThreeOrFive’ which takes a number as parameter,
     tests if it is divisible by 3 or 5, returning true if it is.
 */
-function isDivisibleByThreeOrFive() {
-
+function isDivisibleByThreeOrFive(x) {
+    return !(x%3 && x%5)
 }
 /**
     Write a function called projectEulerProblem1UsingImperativeSummer 
@@ -91,7 +99,7 @@ function isDivisibleByThreeOrFive() {
     again solve Project Euler Problem 1.  It should be one line of code!
 */
 function projectEulerProblem1UsingImperativeSummer() {
-
+    return imperativeSummer(isDivisibleByThreeOrFive, 1000)
 }
 /**
     Exercise 5:
@@ -101,7 +109,7 @@ function projectEulerProblem1UsingImperativeSummer() {
     Hint: use recursion!
 */
 function immutableSummer(f, n) {
-    return f && (n === 0) ? 0 : (n-1) + immutableSummer(f, n-1);
+    return n ? (f(n-1)*(n-1)) + immutableSummer(f, n-1) : 0
 }
 /*
     Write a function called projectEulerProblem1UsingImmutableSummer 
@@ -109,6 +117,6 @@ function immutableSummer(f, n) {
     again solve Project Euler Problem 1.  It should be one line of code!
 */
 function projectEulerProblem1UsingImmutableSummer() {
-
+    return immutableSummer(isDivisibleByThreeOrFive, 1000)
 }
 
