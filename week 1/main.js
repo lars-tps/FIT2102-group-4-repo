@@ -3,8 +3,8 @@ Complete the following table when you submit this file:
 
 Surname     | Firstname | email | Contribution% | Any issues?
 =============================================================
-Person 1... |           |       | 25%           |
-Person 2... |           |       | 25%           |
+Person 1... | Pei Sheng     | ptan0047@student.monash.edu      | 25%           |
+Person 2... | Mohamed Areeb | milh0002@student.monash.edu     | 25%           |
 Person 3... |           |       | 25%           |
 Person 4... |           |       | 25%           |
 
