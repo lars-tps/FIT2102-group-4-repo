@@ -7,6 +7,8 @@ Person 1... | Pei Sheng     | ptan0047@student.monash.edu      | 25%           |
 Person 2... | Mohamed Areeb | milh0002@student.monash.edu      | 25%           |
 Person 3... | Ong Jing Wei  | jong0074@student.monash.edu      | 25%           |
 Person 4... | Yong Swee Zao | syon0012@student.monash.edu      | 25%           |
+Person 5... | Ng Yu Mei     | yngg0068@student.monash.edu      | 25%           |
+
 
 complete Worksheet 1 by entering code in the places marked below...
 
