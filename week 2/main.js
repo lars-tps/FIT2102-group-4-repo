@@ -22,19 +22,44 @@ const myObj = {
 /**
  * Exercise 2
  */
-
+function operationOnTwoNumbers(myFunc) {
+    return x => y => myFunc(x,y)
+}
+const add = operationOnTwoNumbers((x,y) => x + y)
+const addNine = add(9)
+console.log(addNine(3))
 /**
  * Exercise 3
  */
-
+function callEach(myFuncs) {
+    myFuncs.forEach(func => func())
+}
 /**
  * Exercise 4
  */
+function addN(n, arr) {
+    const add = operationOnTwoNumbers((x,y) => x + y)
+    return arr.map(element => add(n)(element))
+}
 
+function getEvens(arr) {
+    const remainder = operationOnTwoNumbers((x,y) => x % y)
+    return arr.filter(element => !remainder(element)(2))
+}
+
+function multiplyArray(arr) {
+    const multiply = operationOnTwoNumbers((x,y) => x * y)
+    return arr.reduce(
+        (accumulator, element) => element ? multiply(element)(accumulator) : multiply(1)(accumulator),
+        1
+    )
+}
 /**
  * Exercise 5
  */
-
+ function range(n, current=0, arr = []) {
+    return n ? range(n-1, current + 1, arr.concat([current])) : arr
+}
 /**
  * Exercise 6
  */
