@@ -15,7 +15,10 @@
 /**
  * Exercise 1
  */
-
+const myObj = {
+    aProperty: "A string",
+    anotherProperty: 55
+}
 /**
  * Exercise 2
  */
