@@ -71,11 +71,9 @@ function Euler1() {
             0
         )
 }
-console.log(Euler1())
 /**
  * Exercise 7
  */
-
 // function infinite_series_calculator(accumulate, predicate, transform, n) {
 //     return range(n).filter(predicate).map(transform).reduce(accumulate)
 // }
