@@ -63,7 +63,15 @@ function multiplyArray(arr) {
 /**
  * Exercise 6
  */
-
+function Euler1() {
+    return range(1000).filter(
+        element => !(element%3) || !(element%5)
+        ).reduce(
+            (accumulator, element) => element+accumulator,
+            0
+        )
+}
+console.log(Euler1())
 /**
  * Exercise 7
  */
