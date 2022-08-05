@@ -74,8 +74,8 @@ function Euler1() {
 /**
  * Exercise 7
  */
-function infinite_series_calculator(accumulate) {
-    return predicate => transform => n => range(n).filter(predicate).map(transform).reduce(accumulate)
+function infinite_series_calculator(accumulate, initialAccumulatorValue=0) {
+    return predicate => transform => n => range(n).filter(predicate).map(transform).reduce(accumulate, initialAccumulatorValue)
 }
 /**
  * Exercise 8
