@@ -1,7 +1,7 @@
-// Surname     | Firstname | Contribution % | Any issues?
+// Surname     | Firstname     | Contribution % | Any issues?
 // =====================================================
-// Person 1... | Pei Sheng | 25%
-// Person 2... |           | 25%
+// Person 1... | Pei Sheng     | 25%
+// Person 2... | Mohamed Areeb | 25%
 // Person 3... |           | 25%
 // Person 4... |           | 25%
 //
@@ -77,6 +77,9 @@ function Euler1() {
 function infinite_series_calculator(accumulate, initialAccumulatorValue=0) {
     return predicate => transform => n => range(n).filter(predicate).map(transform).reduce(accumulate, initialAccumulatorValue)
 }
+//function infinite_series_calculator(accumulate) {
+//    return predicate => transform => n => range(n).filter(predicate).map(transform).reduce(accumulate)
+//}
 /**
  * Exercise 8
  */
