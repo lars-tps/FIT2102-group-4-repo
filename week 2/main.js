@@ -96,7 +96,9 @@ function productAccumulate(n, m){
 }
 
 function calculatePi(n){ //********* TODO (The person who did ex7 will understand how to do this as we have to use that function here, also I changed ex7 a bit as it has to accept 4 parameters)
-    return
+    const pi = Math.PI - infinite_series_calculator(productAccumulate(n,2), skipZero(n), calculatePiTerm(n), n)
+    return pi
+
 }
 
 /**
