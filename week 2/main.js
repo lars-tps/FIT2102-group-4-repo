@@ -1,7 +1,7 @@
-// Surname     | Firstname | Contribution % | Any issues?
+// Surname     | Firstname     | Contribution % | Any issues?
 // =====================================================
-// Person 1... | Pei Sheng | 25%
-// Person 2... |           | 25%
+// Person 1... | Pei Sheng     | 25%
+// Person 2... | Mohamed Areeb | 25%
 // Person 3... |           | 25%
 // Person 4... |           | 25%
 //
@@ -74,15 +74,30 @@ function Euler1() {
 /**
  * Exercise 7
  */
-// function infinite_series_calculator(accumulate, predicate, transform, n) {
-//     return range(n).filter(predicate).map(transform).reduce(accumulate)
-// }
-function infinite_series_calculator(accumulate) {
+function infinite_series_calculator(accumulate, predicate, transform, n) {
     return predicate => transform => n => range(n).filter(predicate).map(transform).reduce(accumulate)
 }
+//function infinite_series_calculator(accumulate) {
+//    return predicate => transform => n => range(n).filter(predicate).map(transform).reduce(accumulate)
+//}
 /**
  * Exercise 8
  */
+function calculatePiTerm(n){
+    return (4*(n**2))/(4*(n**2)-1)
+}
+
+function skipZero(num){
+    return num? true : false
+}
+
+function productAccumulate(n, m){
+    return n*m
+}
+
+function calculatePi(n){ //********* TODO (The person who did ex7 will understand how to do this as we have to use that function here, also I changed ex7 a bit as it has to accept 4 parameters)
+    return
+}
 
 /**
  * Exercise 9
