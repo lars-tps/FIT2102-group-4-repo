@@ -80,7 +80,15 @@ function infinite_series_calculator(accumulate, initialAccumulatorValue=0) {
 /**
  * Exercise 8
  */
+const calculatePiTerm = n => (4*n*n)/((4*n*n)-1)
+const skipZero = num => num > 0 || num < 0
+const productAccumulate = (num1, num2) => num1 * num2
 
+function calculatePi(n) {
+    return infinite_series_calculator(productAccumulate, 2)(skipZero)(calculatePiTerm)(n)
+}
+
+const pi = calculatePi(100)
 /**
  * Exercise 9
  */
