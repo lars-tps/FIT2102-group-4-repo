@@ -77,25 +77,37 @@ function Euler1() {
 function infinite_series_calculator(accumulate, initialAccumulatorValue=0) {
     return predicate => transform => n => range(n).filter(predicate).map(transform).reduce(accumulate, initialAccumulatorValue)
 }
-//function infinite_series_calculator(accumulate) {
-//    return predicate => transform => n => range(n).filter(predicate).map(transform).reduce(accumulate)
-//}
+
 /**
  * Exercise 8
  */
 const calculatePiTerm = n => (4*n*n)/((4*n*n)-1)
 const skipZero = num => num > 0 || num < 0
 const productAccumulate = (num1, num2) => num1 * num2
-
-function calculatePi(n) {
-    return infinite_series_calculator(productAccumulate, 2)(skipZero)(calculatePiTerm)(n)
-}
+const calculatePi = n => infinite_series_calculator(productAccumulate, 2)(skipZero)(calculatePiTerm)(n)
 
 const pi = calculatePi(100)
+
 /**
  * Exercise 9
  */
+function factorial(n){
+    if (n==1){
+        return n
+    }
+    return n*factorial(n-1)
+}
+const calculateETerm = n => ((2*(n+1))/(factorial((2*n)+1)))
+const sumAccumulate = (num1, num2) => num1 + num2
+const alwaysTrue = n => true
+const sum_series_calculator = (transform, n) => infinite_series_calculator(sumAccumulate)(alwaysTrue)(transform)(n)  // Need to TODO
+const calculateE = n => sum_series_calculator(calculateETerm, n)
+const e = calculateE(100)
 
 /**
  * Exercise 10
  */
+function sin(x){
+    const calcNTerm = (n,x) => ((((-1)**n)*(x**((2*n)*1)))/(factorial((2*n)+1)))
+    return sum_series_calculator(calcNTerm, x)
+}
