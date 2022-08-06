@@ -107,7 +107,10 @@ const e = calculateE(100)
 /**
  * Exercise 10
  */
-function sin(x){
-    const calcNTerm = (n,x) => ((((-1)**n)*(x**((2*n)*1)))/(factorial((2*n)+1)))
-    return sum_series_calculator(calcNTerm, x)
-}
+// function sin(x){
+//     const calcNTerm = (n,x) => ((((-1)**n)*(x**((2*n)*1)))/(factorial((2*n)+1)))
+//     return sum_series_calculator(calcNTerm, x)
+// }
+
+const calculateSinTerm = x => n => n%2 ? (-(1**n) * (x**(2*n+1)) / factorial(2*n+1)) : ((1**n) * (x**(2*n+1)) / factorial(2*n+1))
+const sin = x => sum_series_calculator(calculateSinTerm(x))(100)
