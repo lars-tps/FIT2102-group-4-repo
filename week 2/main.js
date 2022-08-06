@@ -100,7 +100,7 @@ function factorial(n){
 const calculateETerm = n => ((2*(n+1))/(factorial((2*n)+1)))
 const sumAccumulate = (num1, num2) => num1 + num2
 const alwaysTrue = n => true
-const sum_series_calculator = (transform) => (n) => infinite_series_calculator(sumAccumulate)(alwaysTrue)(transform)(n)  // Need to TODO
+const sum_series_calculator = (transform) => (n) => infinite_series_calculator(sumAccumulate)(alwaysTrue)(transform)(n)
 const calculateE = n => sum_series_calculator(calculateETerm, n)
 const e = calculateE(100)
 
