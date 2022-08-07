@@ -1,9 +1,10 @@
 // Surname     | Firstname     | Contribution % | Any issues?
 // =====================================================
-// Person 1... | Pei Sheng     | 25%
-// Person 2... | Mohamed Areeb | 25%
-// Person 3... |           | 25%
-// Person 4... |           | 25%
+// Person 1... | Pei Sheng     | 20%
+// Person 2... | Mohamed Areeb | 20%
+// Person 3... | Jing Wei      | 20%
+// Person 4... | Swee Zao      | 20%
+// Person 5... | Yu Mei        | 20%
 //
 // complete Worksheet 2 by entering code in the places marked below...
 //
