@@ -1,7 +1,7 @@
 /**
  * Surname     | Firstname | Contribution % | Any issues?
  * =====================================================
- * Person 1... |           | 25%            |
+ * Person 1... | Pei Sheng | 25%            |
  * Person 2... |           | 25%            |
  * Person 3... |           | 25%            |
  * Person 4... |           | 25%            |
