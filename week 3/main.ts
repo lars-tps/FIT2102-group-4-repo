@@ -118,7 +118,7 @@ function forEach<T>(f: (_: T) => void, list: ConsList<T>): void {
  * Implement this function! Also, complete this documentation (see forEach).
  */
 function map<T, V>(f: (_: T) => V, l: ConsList<T>): ConsList<V> {
-  return IMPLEMENT_THIS;
+  return !l ? null : cons(f(head(l)), map(f, rest(l)));
 }
 
 /*****************************************************************
