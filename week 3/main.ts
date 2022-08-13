@@ -125,6 +125,11 @@ function map<T, V>(f: (_: T) => V, l: ConsList<T>): ConsList<V> {
  * Exercise 3
  */
 
+function fromArray<U>(array: U[]) : ConsList<U> {
+  
+  return array[0] ? cons(array[0], fromArray(array.slice(1))) : null
+}
+
 // Example use of reduce
 function countLetters(stringArray: string[]): number {
   const list = fromArray(stringArray);
