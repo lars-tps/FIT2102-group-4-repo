@@ -129,8 +129,8 @@ function fromArray<U>(array: U[]) : ConsList<U> {
   
   return array[0] ? cons(array[0], fromArray(array.slice(1))) : null
 }
-function reduce<U, V>(f: (val: U, val2: U|V) => U, initialValue: U, l: ConsList<V>): U{
-  return !l ? initialValue : reduce(f, f(initialValue, head(l)), rest(l));
+function reduce<U,V >(f: (_ :U, __:V)=> U, initialValue: U, l:ConsList<V>): U{
+  return !l ? initialValue : reduce(f, f(initialValue, head(l)), rest(l))
 }
 
 // Example use of reduce
