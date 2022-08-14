@@ -142,6 +142,10 @@ function filter<U, V>(f : (_ :U) => V, l: ConsList<U>, result : U[] = []): ConsL
   return l ? f(head(l)) ? filter(f, rest(l),[...result,...[head(l)]]) : filter(f, rest(l), result) : result.length >0 ? fromArray(result): null
 }
 
+function concat<U,V,W>(list1: ConsList<U>, list2: ConsList<U>, l:U[] = []): ConsList<U>|null{
+  return !list1 && !list2 ? null : list1? list2? concat(rest(list1), list2, [...l, ...[head(list1)]]): list1 : l.length>0 ? concat(null, cons(l[l.length-1], list2), l.slice(0,l.length-1)): list2     
+}
+
 // Example use of reduce
 function countLetters(stringArray: string[]): number {
   const list = fromArray(stringArray);
