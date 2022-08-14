@@ -133,6 +133,14 @@ function reduce<U,V >(f: (_ :U, __:V)=> U, initialValue: U, l:ConsList<V>): U{
   return !l ? initialValue : reduce(f, f(initialValue, head(l)), rest(l))
 }
 
+function reduceRight(f, initialValue, l){
+    return !l? initialValue : reduceRight(f, f(head(l), initialValue), rest(l))
+}
+
+function filter<U, V>(f : (_ :U) => V, l: ConsList<U>, result : U[] = []): ConsList<U>|null {
+  return l ? f(head(l)) ? filter(f, rest(l),[...result,...[head(l)]]) : filter(f, rest(l), result) : result.length >0 ? fromArray(result): null
+}
+
 // Example use of reduce
 function countLetters(stringArray: string[]): number {
   const list = fromArray(stringArray);
