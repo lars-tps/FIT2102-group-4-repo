@@ -129,6 +129,9 @@ function fromArray<U>(array: U[]) : ConsList<U> {
   
   return array[0] ? cons(array[0], fromArray(array.slice(1))) : null
 }
+function reduce<U>(f: (val: number, val2: U) => number, initialValue: number, l: ConsList<U>): number{
+  return !l ? initialValue : reduce(f, f(initialValue, head(l)), rest(l));
+}
 
 // Example use of reduce
 function countLetters(stringArray: string[]): number {
