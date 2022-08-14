@@ -17,6 +17,7 @@
  * browser window to run the test.
  */
 
+
 // Stub value to indicate an implementation
 const IMPLEMENT_THIS: any = undefined;
 
