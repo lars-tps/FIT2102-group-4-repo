@@ -146,6 +146,10 @@ function concat<U,V,W>(list1: ConsList<U>, list2: ConsList<U>, l:U[] = []): Cons
   return !list1 && !list2 ? null : list1? list2? concat(rest(list1), list2, [...l, ...[head(list1)]]): list1 : l.length>0 ? concat(null, cons(l[l.length-1], list2), l.slice(0,l.length-1)): list2     
 }
 
+function reverse<T>(list: ConsList<T>):ConsList<T>|null{
+  return list ? concat(reverse(rest(list)), fromArray([head(list)])) : null
+}
+
 // Example use of reduce
 function countLetters(stringArray: string[]): number {
   const list = fromArray(stringArray);
