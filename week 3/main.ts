@@ -17,6 +17,7 @@
  * browser window to run the test.
  */
 
+
 // Stub value to indicate an implementation
 const IMPLEMENT_THIS: any = undefined;
 
@@ -119,12 +120,9 @@ function forEach<T>(f: (_: T) => void, list: ConsList<T>): void {
  * @param list Cons list
  */
 function map<T, V>(f: (_: T) => V, l: ConsList<T>): ConsList<V> {
-  if (l) {
-    return cons(f(head(l)), map(f, rest(l)))
-  } else {
-    return null
-  }
+  return !l ? null : cons(f(head(l)), map(f, rest(l)));
 }
+
 /*****************************************************************
  * Exercise 3
  */
