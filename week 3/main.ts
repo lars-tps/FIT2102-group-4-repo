@@ -4,8 +4,8 @@
  * Person 1... | Pei Sheng     | 20%            |
  * Person 2... | Mohamed Areeb | 20%            |
  * Person 3... | Jing Wei      | 20%            |
- * Person 4... |               | 20%            |
- * Person 5... |               | 20%            |
+ * Person 4... | Yu Mei        | 20%            |
+ * Person 5... | Swee Zao      | 20%            |
  *
  * Please do not hesitate to contact your tutors if there are
  * issues that you cannot resolve within the group.
@@ -329,21 +329,24 @@ const naryTree = new NaryTree(
 
 // Implement: function prettyPrintNaryTree(...)
 function prettyPrintNaryTree<T>(node: NaryTree<T>): List<[number, string]> {
-  // if (!node) {
-  //   return new List<[number, string]>([])
-  // }
-  // const thisLine = lineToList(line(node.data.toString()))
-  // return thisLine.concat(nest(1, node.children.map(prettyPrintNaryTree).reduce(concat, thisLine))
-
-  node ? node.children ? nest(1, prettyPrintNaryTree(node.children)) : lineToList(line(node.data.toString())) : new List<[number, string]>([])
+  if (!node) {
+    return new List<[number, string]>([])
+  }
+  const thisLine = lineToList(line(node.data.toString()))
+  return thisLine.concat(nest(1, 
+    node.children ?
+    node.children.map(prettyPrintNaryTree).reduce( (data, other) => other.concat(data), new List<[number, string]>([]))
+    :
+    new List<[number, string]>([])
+    ))
 }
 
 // *** uncomment the following code once you have implemented prettyPrintNaryTree (above) ***
 //
-// const outputNaryTree = prettyPrintNaryTree(naryTree)
-//                     .map(aLine => new Array(aLine[0] + 1).join('-') + aLine[1])
-//                     .reduce((a,b) => a + '\n' + b, '').trim();
-// console.log(outputNaryTree);
+const outputNaryTree = prettyPrintNaryTree(naryTree)
+                    .map(aLine => new Array(aLine[0] + 1).join('-') + aLine[1])
+                    .reduce((a,b) => a + '\n' + b, '').trim();
+console.log(outputNaryTree);
 
 /*****************************************************************
  * Exercise 8 (Supplementary)
