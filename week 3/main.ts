@@ -4,8 +4,8 @@
  * Person 1... | Pei Sheng     | 20%            |
  * Person 2... | Mohamed Areeb | 20%            |
  * Person 3... | Jing Wei      | 20%            |
- * Person 4... |               | 20%            |
- * Person 5... |               | 20%            |
+ * Person 4... | Swee Zao      | 20%            |
+ * Person 5... | Yu Mei        | 20%            |
  * Please do not hesitate to contact your tutors if there are
  * issues that you cannot resolve within the group.
  *
