@@ -88,12 +88,8 @@ function take<T>(n: number, seq: LazySequence<T>): LazySequence<T> | undefined {
  * @param seq either a sequence or undefined if we have reached the end of the sequence
  * @param start starting value of the reduction past as first parameter to first call of func
  */
-function reduce<T, V>(
-  func: (_: V, x: T) => V,
-  seq: LazySequence<T> | undefined,
-  start: V
-): V {
-  return IMPLEMENT_THIS;
+function reduce<T, V>(func: (_: V, x: T) => V, seq: LazySequence<T> | undefined, start: V): V {
+  return typeof seq !== 'undefined' ? reduce(func, seq.next(), func(start, seq.value)) : start
 }
 
 function reduceRight<T, V>(
