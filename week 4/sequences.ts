@@ -46,7 +46,10 @@ function initSequence<T>(transform: (value: T) => T): (initialValue: T) => LazyS
  */
 
 function map<T, V>(func: (v: T) => V, seq: LazySequence<T>): LazySequence<V> {
-  return IMPLEMENT_THIS;
+  return {
+    value: func(seq.value),
+    next: () => map(func, seq.next())
+  }
 }
 
 function filter<T>(
