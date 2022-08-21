@@ -2,3 +2,21 @@
 .DS_Store
 week 3/main.js.map
 week 3/main.js
+week 4/libs/chai.js
+week 4/libs/default.min.css
+week 4/libs/dracula.css
+week 4/libs/highlight.min.js
+week 4/libs/mathjax.js
+week 4/libs/mocha.css
+week 4/libs/mocha.js
+week 4/libs/require.js
+week 4/libs/sinon.js
+week 4/package-lock.json
+week 4/package.json
+week 4/style.css
+week 4/test/main.test.js
+week 4/tsconfig.json
+week 4/tsconfig.sequences.json
+week 4/webpack.config.js
+week 4/observableexamples.html
+week 4/worksheetChecklist.html
