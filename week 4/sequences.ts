@@ -106,7 +106,7 @@ function maxNumber(lazyList: LazySequence<number>): number {
   // lazyList passed in. The lazyList
   // will terminate so don't use `take`
   // inside this function body.
-  return IMPLEMENT_THIS;
+  return reduce((current, next)=> next > current ? next : current, lazyList, lazyList.value)
 }
 
 function lengthOfSequence(lazyList: LazySequence<any>): number {
