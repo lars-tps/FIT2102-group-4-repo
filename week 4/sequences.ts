@@ -92,12 +92,8 @@ function reduce<T, V>(func: (_: V, x: T) => V, seq: LazySequence<T> | undefined,
   return typeof seq !== 'undefined' ? reduce(func, seq.next(), func(start, seq.value)) : start
 }
 
-function reduceRight<T, V>(
-  f: (_: V, x: T) => V,
-  seq: LazySequence<T> | undefined,
-  start: V
-): V {
-  return IMPLEMENT_THIS;
+function reduceRight<T, V>(f: (_: V, x: T) => V, seq: LazySequence<T> | undefined, start: V): V {
+  return typeof seq !== 'undefined' ? f(reduceRight(f, seq.next(), start), seq.value) : start
 }
 
 /**
