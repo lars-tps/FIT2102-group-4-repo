@@ -33,7 +33,7 @@ interface LazySequence<T> {
 
 // Implement the function:
 function initSequence<T>(transform: (value: T) => T): (initialValue: T) => LazySequence<T> {
-  return function _next(v:T):LazySequence<T> {
+  return function _next(v:T): LazySequence<T> {
     return {
       value: v,
       next: ()=>_next(transform(v))
