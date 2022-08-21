@@ -52,11 +52,11 @@ function map<T, V>(func: (v: T) => V, seq: LazySequence<T>): LazySequence<V> {
   }
 }
 
-function filter<T>(
-  func: (v: T) => boolean,
-  seq: LazySequence<T>
-): LazySequence<T> {
-  return IMPLEMENT_THIS;
+function filter<T>(func: (v: T) => boolean, seq: LazySequence<T>): LazySequence<T> {
+  return func(seq.value) ? {
+    value: seq.value,
+    next: () => filter(func, seq.next())
+  } : filter(func, seq.next())
 }
 
 /**
