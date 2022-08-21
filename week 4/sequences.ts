@@ -113,7 +113,7 @@ function lengthOfSequence(lazyList: LazySequence<any>): number {
   // ******** YOUR CODE HERE ********
   // Again only use reduce and don't
   // use `take` inside this function.
-  return IMPLEMENT_THIS;
+  return reduce((counter, _) => counter + 1, lazyList, 0)
 }
 
 function toArray<T>(seq: LazySequence<T>): T[] {
