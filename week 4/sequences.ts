@@ -120,7 +120,7 @@ function toArray<T>(seq: LazySequence<T>): T[] {
   // ******** YOUR CODE HERE ********
   // Again only use reduce and don't
   // use `take` inside this function.
-  return IMPLEMENT_THIS;
+  return reduce((currentArr, nextVal) => currentArr.concat([nextVal]) , seq.next(), [seq.value])
 }
 
 /**
