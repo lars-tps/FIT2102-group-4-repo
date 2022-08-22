@@ -130,5 +130,9 @@ function toArray<T>(seq: LazySequence<T>): T[] {
 function exercise4Solution(seriesLength: number): number {
   // Your solution using lazy lists.
   // Use `take` to only take the right amount of the infinite list.
-  return IMPLEMENT_THIS;
+  const series = take(seriesLength, initSequence((n: number)=> n > 0 ? (n + 2) * -1 : (n - 2) * -1)(1))
+  return reduce(
+    (accumulator, value) => accumulator + (value)**-1, 
+    series, 
+    0)
 }
