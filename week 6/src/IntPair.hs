@@ -1,10 +1,10 @@
--- Surname     | Firstname | Contribution % | Any issues?
+-- Surname     | Firstname  | Contribution % | Any issues?
 -- =====================================================
--- Person 1... |           | 25%            |
--- Person 2... |           | 25%            |
--- Person 3... |           | 25%            |
--- Person 4... |           | 25%            |
---
+-- Person 1... | Pei Sheng  | 20%            |
+-- Person 2... | Areeb      | 20%            |
+-- Person 3... | Jing Wei   | 20%            |
+-- Person 4... | Swee Zao   | 20%            |
+-- Person 5... | Yu Mei     | 20%            |
 -- Please do not hesitate to contact your tutors if there are
 -- issues that you cannot resolve within the group.
 --
@@ -37,7 +37,7 @@ data IntPair = IntPair Int Int
 -- >>> plusIntPair p2
 -- 8
 plusIntPair :: IntPair -> Int
-plusIntPair = undefined
+plusIntPair (IntPair a b) = a + b
 
 -- | Subtract the two elements of a pair.
 --
@@ -47,7 +47,7 @@ plusIntPair = undefined
 -- >>> minusIntPair p2
 -- 6
 minusIntPair :: IntPair -> Int
-minusIntPair = undefined
+minusIntPair (IntPair a b) = a - b
 
 -- | Return the maximum element in a pair.
 --
@@ -57,18 +57,18 @@ minusIntPair = undefined
 -- >>> maxIntPair p2
 -- 7
 maxIntPair :: IntPair -> Int
-maxIntPair = undefined
+maxIntPair (IntPair a b) = if a>b then a else b
 
 -- | Add two pairs together.
 --
 -- >>> addIntPair p1 p2
 -- IntPair 12 7
 addIntPair :: IntPair -> IntPair -> IntPair
-addIntPair = undefined
+addIntPair (IntPair a b)(IntPair c d) = (IntPair (a+c) (b+d))
 
 -- | Subtract two pairs together.
 --
 -- >>> subIntPair p1 p2
 -- IntPair (-2) 5
 subIntPair :: IntPair -> IntPair -> IntPair
-subIntPair = undefined
+subIntPair (IntPair a b)(IntPair c d) = (IntPair (a-c) (b-d))
