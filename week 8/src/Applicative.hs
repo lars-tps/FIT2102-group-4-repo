@@ -23,10 +23,10 @@ infixl 4 <*>
 -- Id 18
 instance Applicative Id where
     pure :: a -> Id a
-    pure = error "pure id not implemented"
+    pure x = Id x
 
     (<*>) :: Id (a -> b) -> Id a -> Id b
-    (<*>) = error "apply id not implemented"
+    (<*>) (Id f) (Id x)= Id(f x)
 
 -- | Apply to a Maybe, must return `Nothing` if either the function or the
 -- element is a `Nothing`.
@@ -41,10 +41,12 @@ instance Applicative Id where
 -- Nothing
 instance Applicative Maybe where
     pure :: a -> Maybe a
-    pure = error "pure maybe not implemented"
+    pure a = Just a
 
     (<*>) :: Maybe (a -> b) -> Maybe a -> Maybe b
-    (<*>) = error "apply maybe not implemented"
+    (<*>) _ Nothing = Nothing
+    (<*>) Nothing _ = Nothing
+    (<*>) (Just f) (Just x) = Just(f x)
 
 -- | Apply a list of functions over a list of elements, producing the
 -- concatenation of the successive results.
@@ -54,14 +56,14 @@ instance Applicative Maybe where
 -- [2,3,4,10,20,30]
 instance Applicative [] where
     pure :: a -> [a]
-    pure = error "pure list not implemented"
+    pure x = [x]
 
     -- /Hint/: You can implement this using
     --      - list comprehension, or
     --      - foldr and map, or
     --      - map and recursion
     (<*>) :: [a -> b] -> [a] -> [b]
-    (<*>) = error "apply list not implemented"
+    (<*>) fs xs = [f x | f <- fs, x <- xs]
 
 -- | The 'Applicative' class derives from 'Functor', rewrite `fmap` using only
 -- `pure` and `<*>`.
@@ -78,7 +80,7 @@ instance Applicative [] where
 -- >>> (+1) `fmap` [1, 2, 3]
 -- [2,3,4]
 fmap :: Applicative f => (a -> b) -> f a -> f b
-fmap = error "fmap not implemented"
+fmap f x = pure f <*> x
 
 {-
     ******************** Supplementary **************************8
