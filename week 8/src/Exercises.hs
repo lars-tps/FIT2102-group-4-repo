@@ -122,6 +122,6 @@ infixl 4 <*
 -- >>> (Just 5) *> (Just 3)
 -- Just 3
 (*>) :: Applicative f => f a -> f b -> f b
-(*>) x y = y <* x
+(*>) = liftA2 (flip const)
 
 infixl 4 *>
