@@ -8455,3 +8455,5 @@ week 8/watch
 week 8/.stack-work
 *.yaml
 week 8/watcher.ps1
+week 6/stack.yaml.lock
+week 6/tute6.cabal
