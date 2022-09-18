@@ -64,11 +64,11 @@ maxIntPair (IntPair a b) = if a>b then a else b
 -- >>> addIntPair p1 p2
 -- IntPair 12 7
 addIntPair :: IntPair -> IntPair -> IntPair
-addIntPair (IntPair a b)(IntPair c d) = (IntPair (a+c) (b+d))
+addIntPair (IntPair a b)(IntPair c d) = IntPair (a+c) (b+d)
 
 -- | Subtract two pairs together.
 --
 -- >>> subIntPair p1 p2
 -- IntPair (-2) 5
 subIntPair :: IntPair -> IntPair -> IntPair
-subIntPair (IntPair a b)(IntPair c d) = (IntPair (a-c) (b-d))
+subIntPair (IntPair a b)(IntPair c d) = IntPair (a-c) (b-d)
