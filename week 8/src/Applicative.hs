@@ -111,7 +111,7 @@ fmap f x = pure f <*> x
 instance Applicative ((->) r) where
     pure :: a -> (r -> a)
     -- pure :: a -> r -> a
-    pure = error "pure function not implemented"
+    pure x = const x
 
     (<*>) :: (r -> (a -> b)) -> (r -> a) -> (r -> b)
     -- (<*>) :: (r -> (a -> b)) -> (r -> a) -> r -> b
