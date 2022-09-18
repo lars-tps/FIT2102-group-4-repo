@@ -40,7 +40,7 @@ anyOdd lst = all odd lst
 -- >>> sumTwoLists [1,2,3,4,5] [1,2,3,4,5]
 -- [2,4,6,8,10]
 sumTwoLists :: [Int] -> [Int] -> [Int]
-sumTwoLists x y = zipWith (+) x y 
+sumTwoLists = zipWith (+)
 
 -- | Function to make a list of the first item of each pair in a list of pairs
 -- Avoid hard coding recursion in these functions, if you do, you will lose marks!
@@ -48,4 +48,4 @@ sumTwoLists x y = zipWith (+) x y
 -- >>> firstItem [(2,1), (4,3), (6,5)]
 -- [2,4,6]
 firstItem :: [(a,b)] -> [a]
-firstItem lst = map fst lst 
+firstItem = map fst
