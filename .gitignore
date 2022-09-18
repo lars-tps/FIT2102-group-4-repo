@@ -8453,3 +8453,5 @@ week 8/libs
 week 8/test
 week 8/watch
 week 8/.stack-work
+*.yaml
+week 8/watcher.ps1
