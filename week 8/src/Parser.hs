@@ -7,6 +7,7 @@ import           Applicative
 import           Exercises
 
 import           Prelude                        ( reads )
+import Control.Concurrent (yield)
 
 -- | This is our Parser which holds a parsing function.
 --   The function returns
@@ -102,7 +103,7 @@ is c = Parser $ \i -> case parse char i of
 -- >>> parse item "1"
 -- Nothing
 item :: Parser Int
-item = error "item not implemented"
+item =  is ',' *> int
 
 -- | Parse an inital character and an integer
 --
@@ -115,7 +116,7 @@ item = error "item not implemented"
 -- >>> parse (open '[') "{1,2,3}"
 -- Nothing
 open :: Char -> Parser Int
-open = error "open not implemented"
+open c = is c *> int
 
 -- | Parse a tuple with two integers
 --
@@ -127,4 +128,4 @@ open = error "open not implemented"
 -- >>> parse parseIntTuple2 "[10,2)"
 -- Nothing
 parseIntTuple2 :: Parser (Int, Int)
-parseIntTuple2 = error "parseIntTuple2 not implemented"
+parseIntTuple2 = liftA2 (,) (open '(') item <* is ')'

@@ -115,7 +115,7 @@ instance Applicative ((->) r) where
 
     (<*>) :: (r -> (a -> b)) -> (r -> a) -> (r -> b)
     -- (<*>) :: (r -> (a -> b)) -> (r -> a) -> r -> b
-    (<*>) = error "apply function not implemented"
+    (<*>) f g x = f x (g x)
 
 -- | Takes an of functions in an Applicative context, and a value in the same context
 --   and applies the functions to the value
@@ -126,7 +126,7 @@ instance Applicative ((->) r) where
 -- >>> nestedApply [Id (++" hello"),Id (++" world!")] (Id "hello")
 -- [Id "hello hello",Id "hello world!"]
 nestedApply :: (Applicative f, Applicative g) => g (f (a -> b)) -> f a -> g (f b)
-nestedApply = error "nestedApply not implemented"
+nestedApply a1 a2 = (<*>) <$> a1 <*> pure a2
 
 -- | Apply to a RoseTree, i.e. return a tree composed of trees created by the
 -- successive application of functions to initial nodes.
