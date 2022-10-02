@@ -12,6 +12,6 @@ import           ExercisesW8
 -- >>> [1,2,3,4] $> 3
 -- [3,3,3,3]
 ($>) :: Functor f => f b -> a -> f a
-($>) = error "$> not implemented"
+($>) a b = (<$>) (const b) a
 
 infix 4 $>
