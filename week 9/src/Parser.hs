@@ -53,7 +53,12 @@ thisMany = replicateA
 -- >>> parse (fixedArray 2) "[1,2,3]"
 -- Nothing
 fixedArray :: Int -> Parser [Int]
-fixedArray = error "fixedarray not implemented"
+fixedArray 0 = Parser $ \x -> case parse (is '[') x of
+    Nothing -> Nothing
+    Just (r1, _) -> case parse (is ']') r1 of
+        Nothing -> Nothing
+        _ -> Just ("", [])
+fixedArray n = liftA2 (:) (open '[') (thisMany (n-1) item <* is ']')
 
 -- | Write a function that parses the given string (fails otherwise).
 --
@@ -64,7 +69,7 @@ fixedArray = error "fixedarray not implemented"
 -- >>> parse (string "hey") "hello bob"
 -- Nothing
 string :: String -> Parser String
-string = error "string not implemented"
+string = traverse is
 
 -- | Return a parser that tries the first parser:
 --
@@ -85,7 +90,8 @@ string = error "string not implemented"
 -- Nothing
 (|||) :: Parser a -> Parser a -> Parser a
 p1 ||| p2 = Parser $ \x -> case parse p1 x of
-    _       -> error "||| not implemented"
+    Nothing       -> parse p2 x
+    _             -> parse p1 x
 
 -- | Parse a Nothing value. Parse the string "Nothing", if succeeds return Nothing
 --
@@ -96,7 +102,10 @@ p1 ||| p2 = Parser $ \x -> case parse p1 x of
 -- >>> parse nothing "Nothing"
 -- Just ("",Nothing)
 nothing :: Parser (Maybe a)
-nothing = error "nothing not implemented .. haha"
+nothing = Parser $ \x -> case parse (string "Nothing") x of
+    Nothing -> Nothing -- if string does not match "Nothing"
+    _ -> Just ("", Nothing) -- if string indeed matched with "Nothing"
+
 
 -- | Parse a Just value. Parse the string "Just ", followed by the given parser
 --
@@ -105,7 +114,12 @@ nothing = error "nothing not implemented .. haha"
 -- >>> parse (just int) "Nothing"
 -- Nothing
 just :: Parser a -> Parser (Maybe a)
-just = error "just not implemented"
+just p = Parser $ \x -> case parse (string "Just") x of
+    Nothing -> Nothing
+    Just (r1, _) -> case parse p r1 of
+      Nothing -> Nothing
+      Just (r2, y) -> Just (r2, Just y)
+
 
 -- | Parse a 'Maybe'
 -- | This is named maybeParser due to a nameclash with Prelude.maybe
@@ -123,7 +137,7 @@ just = error "just not implemented"
 -- >>> parse (maybeParser int) "Something Else"
 -- Nothing
 maybeParser :: Parser a -> Parser (Maybe a)
-maybeParser = error "maybeparser not implemented"
+maybeParser p = just p ||| nothing
 
 -- | Parse an array of length less then or equal to n
 --
@@ -136,7 +150,7 @@ maybeParser = error "maybeparser not implemented"
 -- >>> parse (atMostArray 10) "[1,2,3,4,5]"
 -- Just ("",[1,2,3,4,5])
 atMostArray :: Int -> Parser [Int]
-atMostArray = error "atmostarray not implemented"
+atMostArray n = foldr (|||) (fixedArray 0) (fixedArray <$> [1..n])
 
 -- | Parse a sequence of arrays of length less then or equal to 3
 --
@@ -148,7 +162,7 @@ atMostArray = error "atmostarray not implemented"
 -- >>> validArrays ["[1,2]", "[1,2,3]", "[1]", "[]", "[1,2,3,4]"]
 -- Nothing
 validArrays :: [String] -> Maybe [(String, [Int])]
-validArrays = error "validarrays not implemented"
+validArrays = traverse $ parse $ atMostArray 3
 
 -- | Sum the values of a sequence of arrays of length less then or equal to 3
 --
