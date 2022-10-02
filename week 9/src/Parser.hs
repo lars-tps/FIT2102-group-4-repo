@@ -22,7 +22,7 @@ import           Prelude                        ( reads )
 -- >>> parse parseIntTuple3 "(1,2)"
 -- Nothing
 parseIntTuple3 :: Parser (Int, Int, Int)
-parseIntTuple3 = error "parseinttuple3 not implemented"
+parseIntTuple3 = liftA3 (,,) (open '(') item (item <* is ')')
 
 -- | Repeat a parse some number of times
 --
@@ -36,7 +36,7 @@ parseIntTuple3 = error "parseinttuple3 not implemented"
 -- >>> parse (thisMany 4 $ is 'a') "aaabc"
 -- Nothing
 thisMany :: Int -> Parser a -> Parser [a]
-thisMany = error "thismany not implemented"
+thisMany = replicateA
 
 -- | Parse a fixed length array of integers
 --
