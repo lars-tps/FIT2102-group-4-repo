@@ -8461,3 +8461,6 @@ week 7/Setup.hs
 *.lock
 *.cabal
 week 8/src.zip
+week 9/libs
+week 9/test
+week 9/watch
