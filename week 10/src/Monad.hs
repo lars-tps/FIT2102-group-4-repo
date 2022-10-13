@@ -30,7 +30,7 @@ infixr 1 =<<
 -- [1,1,2,2,3,3]
 instance Monad [] where
   (=<<) :: (a -> [b]) -> [a] -> [b]
-  (=<<) = error "monad list not implemented"
+  (=<<) = (mconcat .) . (<$>)
 
 -- | Bind a function on a 'Maybe'.
 -- /Hint/: Use pattern matching to handle the Nothing and the Just cases.
@@ -43,7 +43,8 @@ instance Monad [] where
 -- Nothing
 instance Monad Maybe where
   (=<<) :: (a -> Maybe b) -> Maybe a -> Maybe b
-  (=<<) = error "monad maybe not implemented"
+  (=<<) _ Nothing = Nothing
+  (=<<) f (Just n) = f n
 
 -- | ------------------------------------------------------
 -- | -------------------- Supplementary -------------------
@@ -69,15 +70,15 @@ instance Monad Maybe where
 -- You can imagine a situation where you need to chain together a bunch of functions, but
 -- they all take a common parameter, e.g. a file name or common contextual information.
 --
--- -- >>> ((+) =<< (*2)) 3
+-- >>> ((+) =<< (*2)) 3
 -- 9
 --
 -- In the next example we use the 3 in three functions without passing it directly to any of them:
--- -- >>> ((*) =<< (+) =<< (*2)) 3
+-- >>> ((*) =<< (+) =<< (*2)) 3
 -- 27
 --
--- -- >>> ((++) =<< ((+1)<$>)) [1,2,3]
+-- >>> ((++) =<< ((+1)<$>)) [1,2,3]
 -- [2,3,4,1,2,3]
 instance Monad ((->) r) where
   (=<<) :: (a -> (r -> b)) -> (r -> a) -> (r -> b)
-  (=<<) = error "monad function not implemented"
+  (=<<) b u = \x -> b (u x) x

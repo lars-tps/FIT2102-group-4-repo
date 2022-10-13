@@ -18,7 +18,10 @@ import           Prelude
 --             return ("Hello, " ++ name ++ "!")) >>=
 --             putStrLn
 helloName :: IO ()
-helloName = error "helloname not implemented"
+helloName = do 
+              putStrLn "What is your name?"
+              name <- getLine
+              putStrLn ("Hello, " ++ name ++ "!")
 
 -- | Given a pair (filename, filecontent), print `filecontent` in the following format:
 -- | Your code should skip any empty lines (i.e. null lines)
@@ -43,12 +46,12 @@ printFile (fp, file) = do
   putStrLn $ "================ " ++ fp
 
   -- Invalid lines are null lines
-  let validLines = error "valid lines not implemented"
+  let validLines = filter (/= "") (lines file)
 
   -- Print out the valid lines
-  error "print out valid lines not implemented"
+  traverse putStrLn validLines
 
-  return $ error "number of characters not implemented"
+  return $ sum $ fmap length validLines
 
 -- | Given a list of pairs (filename, filecontent), print them all using `printFile`
 -- and return the total number of characters printed
@@ -65,7 +68,9 @@ printFile (fp, file) = do
 -- world
 -- 10
 printFiles :: [(FilePath, String)] -> IO Int
-printFiles = error "printfiles not implemented"
+printFiles = do
+                lenList <- traverse printFile
+                return $ (foldr (+) 0) <$> lenList
 
 -- | Open the file given as parameter and return a tuple with the name of the
 -- file and its content.
@@ -75,7 +80,9 @@ printFiles = error "printfiles not implemented"
 -- >>> getFile "share/a.txt"
 -- ("share/a.txt","Content of a.\n")
 getFile :: FilePath -> IO (FilePath, String)
-getFile = error "getfile not implemented"
+getFile path = do
+            filecontent <- readFile path
+            return $ (path,filecontent)
 
 -- | Open a list of files.
 --
@@ -84,7 +91,7 @@ getFile = error "getfile not implemented"
 -- >>> getFiles ["share/a.txt","share/b.txt"]
 -- [("share/a.txt","Content of a.\n"),("share/b.txt","Content of b.\n")]
 getFiles :: [FilePath] -> IO [(FilePath, String)]
-getFiles = error "getfiles not implemented"
+getFiles = traverse getFile
 
 -- | Process a list of files.
 -- | Given a path, open and print the contents of the files listed.
@@ -100,4 +107,8 @@ getFiles = error "getfiles not implemented"
 -- Content of c.
 -- 39
 run :: FilePath -> IO Int
-run = error "run not implemented"
+run path = do
+            paths <- readFile path
+            contents <- getFiles $ lines paths
+            printFiles contents
+

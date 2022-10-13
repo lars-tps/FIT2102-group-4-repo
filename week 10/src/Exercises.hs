@@ -35,7 +35,7 @@ import           Traversable                    ( Traversable
 -- >>> (join (+)) 3
 -- 6
 join :: Monad f => f (f a) -> f a
-join = error "join not implemented"
+join = (=<<) id
 
 -- | Implement a flipped version of '=<<'.
 --
@@ -54,18 +54,18 @@ join = error "join not implemented"
 -- >>> Just 20 >>= half >>= half >>= half
 -- Nothing
 (>>=) :: Monad f => f a -> (a -> f b) -> f b
-(>>=) = error "right bind not implemented"
+(>>=) = (join .) . flip (<$>)
 
 -- | Sequentially call two monadic actions
 --
 -- >>> [1,2,3] >> [2,3,4]
 -- [2,3,4,2,3,4,2,3,4]
 (>>) :: Monad m => m a -> m b -> m b
-(>>) = error "empty bind not implemented"
+(>>) = (. const) . (>>=)
 
 -- | 'return' is just 'pure', which is available because a Monad is also an Applicative
 return :: (Monad m) => a -> m a
-return = error "return not implemented"
+return = pure
 
 -- | map a function with a monadic effect across a Traversable.
 --
@@ -83,7 +83,7 @@ return = error "return not implemented"
 -- >>> mapM doubleSmallNumbers [1,2,1,2]
 -- Just [2,4,2,4]
 mapM :: (Monad m, Traversable t) => (a -> m b) -> t a -> m (t b)
-mapM = error "mapm not implemented"
+mapM = traverse
 
 -- | ------------------------------------------------------
 -- | -------------------- Supplementary -------------------
