@@ -149,7 +149,7 @@ satisfy f = char >>= f'
 -- >>> isErrorResult (parse (is 'c') "b")
 -- True
 is :: Char -> Parser Char
-is = error "is not implemented"
+is c = satisfy (== c)
 
 -- | Return a parser that produces any character but fails if:
 --
@@ -166,7 +166,7 @@ is = error "is not implemented"
 -- >>> isErrorResult (parse (isNot 'c') "c")
 -- True
 isNot :: Char -> Parser Char
-isNot = error "isnot not implemented"
+isNot c = satisfy (/= c)
 
 -- | Write a function that parses one of the characters in the given string.
 --
@@ -178,7 +178,7 @@ isNot = error "isnot not implemented"
 -- >>> isErrorResult (parse (oneof "abc") "def")
 -- True
 oneof :: String -> Parser Char
-oneof = error "oneof not implemented"
+oneof s = satisfy (`elem` s)
 
 -- | Write a function that parses any character, but fails if it is in the
 -- given string.
@@ -191,7 +191,7 @@ oneof = error "oneof not implemented"
 -- >>> isErrorResult (parse (noneof "abcd") "abc")
 -- True
 noneof :: String -> Parser Char
-noneof = error "noneof not implemented"
+noneof s = satisfy (`notElem` s)
 
 -- | Return a parser that produces a character between '0' and '9' but fails if
 --
@@ -201,7 +201,7 @@ noneof = error "noneof not implemented"
 --
 -- /Hint/: Use the 'isDigit' function
 digit :: Parser Char
-digit = error "digit not implemented"
+digit = satisfy isDigit
 
 -- | Return a parser that produces a space character but fails if
 --
@@ -211,7 +211,7 @@ digit = error "digit not implemented"
 --
 -- /Hint/: Use the 'isSpace' function
 space :: Parser Char
-space = error "space not implemented"
+space = satisfy isSpace
 
 -- | Return a parser that produces a lower-case character but fails if:
 --
@@ -221,7 +221,7 @@ space = error "space not implemented"
 --
 -- /Hint/: Use the 'isLower' function
 lower :: Parser Char
-lower = error "lower not implemented"
+lower = satisfy isLower
 
 -- | Return a parser that produces an upper-case character but fails if:
 --
@@ -231,7 +231,7 @@ lower = error "lower not implemented"
 --
 -- /Hint/: Use the 'isUpper' function
 upper :: Parser Char
-upper = error "upper not implemented"
+upper = satisfy isUpper
 
 -- | Return a parser that produces an alpha character but fails if:
 --
@@ -241,7 +241,7 @@ upper = error "upper not implemented"
 --
 -- /Hint/: Use the 'isAlpha' function
 alpha :: Parser Char
-alpha = error "alpha not implemented"
+alpha = satisfy isAlpha
 
 -- | -------------------------------------------------
 -- | ------------- Sequential parsers ----------------
@@ -272,7 +272,7 @@ alpha = error "alpha not implemented"
 -- >>> parse (list (char *> pure 'v')) ""
 -- Result >< ""
 list :: Parser a -> Parser [a]
-list = error "list not implemented"
+list p = list1 p ||| pure [] 
 
 -- | Return a parser that produces at least one value from the given parser
 -- then continues producing a list of values from the given parser (to
@@ -289,7 +289,10 @@ list = error "list not implemented"
 -- >>> isErrorResult (parse (list1 (char *> pure 'v')) "")
 -- True
 list1 :: Parser a -> Parser [a]
-list1 = error "list1 not implemented"
+list1 p = do
+  first <- p
+  rest <- list p
+  pure (first:rest)
 
 -- | Write a parser that will parse zero or more spaces.
 --
@@ -301,7 +304,7 @@ list1 = error "list1 not implemented"
 -- >>> parse spaces "abc"
 -- Result >abc< ""
 spaces :: Parser String
-spaces = error "spaces not implemented"
+spaces = list space
 
 -- | Return a parser that produces one or more space characters (consuming
 -- until the first non-space) but fails if:
@@ -318,7 +321,7 @@ spaces = error "spaces not implemented"
 -- >>> isErrorResult $ parse spaces1 "abc"
 -- True
 spaces1 :: Parser String
-spaces1 = error "spaces1 not implemented"
+spaces1 = list1 space
 
 -- | Return a parser that produces the given number of values off the given
 -- parser.  This parser fails if the given parser fails in the attempt to
@@ -363,7 +366,7 @@ string = traverse is
 -- >>> parse (tok (is 'a')) "abc"
 -- Result >bc< 'a'
 tok :: Parser a -> Parser a
-tok = error "tok not implemented"
+tok p = p >>= (\r -> spaces >> pure r)
 
 -- | Write a function that parses the given char followed by 0 or more spaces.
 --
@@ -375,7 +378,7 @@ tok = error "tok not implemented"
 -- >>> isErrorResult (parse (charTok 'a') "dabc")
 -- True
 charTok :: Char -> Parser Char
-charTok = error "charTok not implemented"
+charTok c = tok (is c)
 
 -- | Write a parser that parses a comma ',' followed by 0 or more spaces.
 --
@@ -387,7 +390,7 @@ charTok = error "charTok not implemented"
 -- >>> isErrorResult( parse commaTok "1,23")
 -- True
 commaTok :: Parser Char
-commaTok = error "commaTok not implemented"
+commaTok = charTok ','
 
 -- | Write a function that parses the given string, followed by 0 or more
 -- spaces.
@@ -400,7 +403,7 @@ commaTok = error "commaTok not implemented"
 -- >>> isErrorResult (parse (stringTok "abc") "bc  ")
 -- True
 stringTok :: String -> Parser String
-stringTok = error "stringTok not implemented"
+stringTok s = tok (string s)
 
 -- | -------------------------------------------------
 -- | --------------- More examples -------------------
@@ -434,7 +437,17 @@ stringTok = error "stringTok not implemented"
 -- >>> isErrorResult (parse (sepby1 char (is ',')) "")
 -- True
 sepby1 :: Parser a -> Parser s -> Parser [a]
-sepby1 = error "sepby1 not implemented"
+sepby1 p s = do
+  a <- p
+  --repeat this part with list
+  b <- list (sepby1Help p s)
+  pure (a:b)
+  
+sepby1Help :: Parser a -> Parser s -> Parser a
+sepby1Help p s = do 
+  _ <- s
+  a <- p
+  pure a
 
 -- | Write a function that produces a list of values from repeating the given
 -- parser, separated by the second given parser.
@@ -453,7 +466,7 @@ sepby1 = error "sepby1 not implemented"
 -- >>> parse (sepby char (is ',')) "a,b,c,,def"
 -- Result >def< "abc,"
 sepby :: Parser a -> Parser s -> Parser [a]
-sepby = error "sepby not implemented"
+sepby p s = sepby1 p s ||| pure []
 
 -- | Write a function that produces a parser for an array (list)
 --
@@ -483,4 +496,11 @@ sepby = error "sepby not implemented"
 -- >>> isErrorResult (parse (array $ tok int) "1")
 -- True
 array :: Parser a -> Parser [a]
-array = error "array not implemented"
+array p = do
+  a <- is '['
+  spaces
+  b <- (sepby p (is ','))
+  spaces
+  c <- is ']'
+  spaces
+  pure b
